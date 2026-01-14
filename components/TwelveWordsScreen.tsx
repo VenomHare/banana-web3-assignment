@@ -34,6 +34,7 @@ export const TwelveWordsScreen = () => {
                         {
                             Array.from({ length: 12 }).map((_, i) => (
                                 <Input
+                                    className="text-white"
                                     value={words[i]}
                                     onChange={(e) => {
                                         setWords((prev) => {

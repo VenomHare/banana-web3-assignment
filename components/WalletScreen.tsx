@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Button } from "./ui/button"
 import { Copy, Eye, EyeOff } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -14,19 +14,20 @@ export const WalletScreen = () => {
     const [isWordsPopupOpen, setIsWordsPopupOpen] = useState(false);
     const web3 = useContext(Web3Context);
     const [selectedAccountIndex, setSelectedAccountIndex] = useState(0);
+    const cardRef = useRef<HTMLDivElement>(null);
 
     return (<>
         <div className="h-dvh w-screen animate-popin">
             <div className="w-full max-w-7xl h-full mx-auto flex flex-col px-4">
-                <div className="w-full mt-30 flex flex-col justify-around">
+                <div className="w-full mt-10 md:mt-30 flex flex-col justify-around">
                     <div className="flex items-center">
                         <img src="/banana.png" className="w-[50px] h-[50px] md:w-[75px] md:h-[75px] aspect-square object-contain" alt="Logo" />
                         <h1 className="text-3xl md:text-5xl font-salsa font-semibold">Banana</h1>
                     </div>
                     <h2 className="text-xl font-salsa">Opensource Web-based Web3 wallet</h2>
                 </div>
-                <div className="w-full max-h-full overflow-y-auto flex flex-col-reverse md:flex-row md:justify-between mt-[10dvh] gap-10">
-                    <div className="w-full md:w-1/3 flex flex-col pt-20 md:pt-0">
+                <div className="w-full max-h-full overflow-y-auto flex flex-col-reverse md:flex-row md:justify-between mt-[10dvh] gap-[10vh] md:gap-10">
+                    <div className="w-full md:w-1/3 h-full flex flex-col mt-20 md:mt-0">
                         <h3 className="text-3xl font-sans">Available Accounts</h3>
                         <div className="flex-1 w-full overflow-y-auto max-h-[40dvh] my-5 h-full">
                             {
@@ -36,21 +37,24 @@ export const WalletScreen = () => {
                                         key={i}
                                         isActive={selectedAccountIndex == i}
                                         onClick={() => {
-                                            setSelectedAccountIndex(i)
+                                            setSelectedAccountIndex(i);
+                                            if (cardRef.current) {
+                                                cardRef.current.scrollIntoView({ behavior: "smooth" })
+                                            }
                                         }}
                                     />)
                             }
                         </div>
                         <div className="flex flex-col gap-4">
-                            <Button className="bg-white text-black py-2" onClick={async () => {
-                                await web3?.createNewAccount()
+                            <Button className="dark:bg-white text-black py-2" onClick={async () => {
+                                await web3?.createNewAccount();
                             }}>Create New Account</Button>
                             <Button variant={"ghost"} className="py-2" onClick={() => { setIsWordsPopupOpen(true) }}>View Recovery Words</Button>
                         </div>
                     </div>
                     <div className="w-full md:w-1/2 h-full flex flex-col gap-5">
-                        <h3 className="text-3xl font-sans text-primary">Account {selectedAccountIndex + 1}</h3>
-                        <div className="w-full md:w-4/5 bg-[#272211] rounded p-5">
+                        <h3 className="text-3xl font-sans text-primary" ref={cardRef}>Account {selectedAccountIndex + 1}</h3>
+                        <div className="w-full md:w-4/5 shadow bg-primary/50 dark:bg-[#272211] rounded p-5">
                             <div className="flex gap-3">
                                 <Solana_Logo />
                                 <p className="text-3xl font-sans">Solana</p>
@@ -76,7 +80,7 @@ export const WalletScreen = () => {
                                                 :
                                                 <Eye className="size-4 shrink-0" />
                                         }
-                                        <span className={cn("text-sm",showSolPrivateKey ? "overflow-hidden wrap-break-word py-1" : "blur overflow-hidden")}>
+                                        <span className={cn("text-sm", showSolPrivateKey ? "overflow-hidden wrap-break-word py-1" : "blur overflow-hidden")}>
                                             {web3?.accounts[selectedAccountIndex].solana.privateKey}
                                         </span>
                                     </div>
@@ -84,7 +88,7 @@ export const WalletScreen = () => {
                             </div>
                         </div>
 
-                        <div className="w-full md:w-4/5 bg-[#272211] rounded p-5">
+                        <div className="w-full md:w-4/5 shadow bg-primary/50 dark:bg-[#272211] rounded p-5">
                             <div className="flex gap-3">
                                 <Ethereum_Logo />
                                 <p className="text-3xl font-sans">Ethereum</p>

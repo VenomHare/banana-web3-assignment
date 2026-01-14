@@ -53,14 +53,14 @@ export default function RootLayout({
       <body
         className={`${bricolageGrot.variable} ${salsa.variable} antialiased`}
       >
-         <ThemeProvider
+          <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
-            disableTransitionOnChange
+            disableTransitionOnChange={false}
           >
             <Toaster />
-          {children}
+            {children}
           </ThemeProvider>
       </body>
     </html>

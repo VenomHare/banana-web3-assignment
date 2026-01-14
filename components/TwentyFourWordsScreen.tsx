@@ -14,8 +14,8 @@ export const TwentyFourWordsScreen = () => {
     },[words])
 
     return (<>
-        <div className="max-h-dvh h-dvh w-screen animate-popin overflow-y-auto">
-            <div className="w-full max-w-7xl h-full mx-auto flex flex-col items-center justify-center gap-5 ">
+        <div className="max-h-dvh h-dvh w-screen animate-popin overflow-y-auto py-10 md:py-0">
+            <div className="w-full max-w-7xl h-fit md:h-full mx-auto flex flex-col items-center justify-start md:justify-center gap-5">
                 <div className="w-9/10 md:w-6/10 mb-5 flex flex-col gap-2 justify-start">
                     <div className="flex items-center">
                         <img src="/banana.png" className="w-[50px] h-[50px] md:w-[75px] md:h-[75px] aspect-square object-contain" alt="Logo" />
@@ -33,7 +33,7 @@ export const TwentyFourWordsScreen = () => {
                             Array.from({ length: 24 }).map((_, i) => (
                                 <Input
                                     value={words[i]}
-                                    className="text-sm md:text-md"
+                                    className="text-white text-sm md:text-md"
                                     onChange={(e) => {
                                         setWords((prev) => {
                                             const part = [...prev];

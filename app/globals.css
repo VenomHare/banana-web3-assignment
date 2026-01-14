@@ -199,7 +199,6 @@
 @layer base {
   .background-bubble {
     z-index: 1;
-    background: color-mix(in oklab, var(--primary) 10%, transparent);
     transition: all ease 500ms;
   }
 
@@ -301,6 +300,12 @@
   @media (max-width: 1200px) {
     .background-bubble.create {
       width: 55dvw;
+    }
+  }
+
+  @media (max-width: 800px) {
+    .background-bubble.wallet {
+      top: -1vh;
     }
   }
 

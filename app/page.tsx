@@ -10,6 +10,7 @@ import { TwelveWordsScreen } from "@/components/TwelveWordsScreen";
 import { TwentyFourWordsScreen } from "@/components/TwentyFourWordsScreen";
 import { WalletScreen } from "@/components/WalletScreen";
 import { useWeb3 } from "@/components/useWeb3";
+import { ModeToggle } from "@/components/ThemeButton";
 
 export default function Home() {
     const [screen, setScreen] = useState<ActiveScreen>("create");
@@ -17,6 +18,7 @@ export default function Home() {
     const hook = useWeb3();
 
     return (<>
+        <ModeToggle/>
         <ScreenContext.Provider value={{ screen, setScreen }}>
             <Web3Context.Provider value={hook}>
                 <RenderScreen />
@@ -51,7 +53,7 @@ const BackgroundProp = () => {
     return (<div className="w-screen h-dvh flex items-center justify-center fixed top-0 left-0 pointer-events-none">
         <div
             className={cn(
-                "background-bubble",
+                "background-bubble bg-primary/30 dark:bg-primary/10",
                 screen === "12-words" ? "words12" :
                     screen === "24-words" ? "words24" :
                         screen
