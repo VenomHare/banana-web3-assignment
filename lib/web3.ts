@@ -111,7 +111,6 @@ export const getUSDCBalance = async (rpcId: RpcId, adr: string) => {
     }
 }
 
-
 export const sendSolana = async (rpcId: RpcId, amount: number, sender: KeySet, receiver: string) => {
     try {
         if (typeof window !== "undefined" && !(window as any).Buffer) {
