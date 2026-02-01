@@ -1,10 +1,25 @@
 'use client';
 
 import { Button } from "@/components/ui/button";
+import { AccountStorage } from "@/lib/types";
 import { SquareArrowOutUpRight } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+    const [dashBtn, setDashBtn] = useState(false);
+    useEffect(() => {
+        try {
+            const account_str = localStorage.getItem("accounts");
+            if (!account_str) { return }
+            const accounts: AccountStorage = JSON.parse(account_str);
+            if (accounts.length > 0) {
+                setDashBtn(true);
+            }
+        }
+        catch { }
+    }, [])
+
     const router = useRouter();
 
     return (<>
@@ -16,13 +31,17 @@ export default function Home() {
                 </div>
                 <h2 className="text-center text-lg font-sans">Web3 HD Wallet</h2>
                 <div className="mt-20 w-full flex flex-col items-center gap-5">
-                    <Button className="w-3/5" onClick={() => {router.push("/create")}}>
+                    <Button className="w-3/5" onClick={() => { router.push("/create") }}>
                         Create New Wallet
                     </Button>
-                    <Button variant={"secondary"} className="w-3/5" onClick={() => {router.push("/dashboard")}}>
-                        Dashboard
-                        <SquareArrowOutUpRight />
-                    </Button>
+                    {
+                        dashBtn &&
+                        <Button variant={"secondary"} className="w-3/5" onClick={() => { router.push("/dashboard") }}>
+                            Dashboard
+                            <SquareArrowOutUpRight />
+                        </Button>
+                    }
+
                 </div>
             </div>
         </div>

@@ -1,4 +1,5 @@
 "use client";
+import { Buffer } from "buffer"
 import BalanceDisplayCard from "@/components/DashboardBlocks/BalanceDisplayCard";
 import CopyKeyBlock from "@/components/DashboardBlocks/CopyKeyBlock";
 import { HeadingBlock } from "@/components/DashboardBlocks/HeadingBlock";
@@ -62,6 +63,10 @@ const Dashboard = () => {
             setLoadingBalance(false);
         }
     }
+
+    useEffect(() => {
+        window.Buffer = Buffer;
+    },[]) 
 
     useEffect(() => {
         updateAccounts();
