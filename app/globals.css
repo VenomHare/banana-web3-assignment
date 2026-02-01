@@ -70,8 +70,8 @@
   --shadow-opacity: var(--shadow-opacity);
   --color-shadow-color: var(--shadow-color);
   --color-destructive-foreground: var(--destructive-foreground);
-  --animate-popin: popin 2s ease forwards;
-  --animate-popin-fast: popin .5s ease forwards;
+  --animate-popup: popup 500ms ease forwards;
+  --animate-popdown: popdown 800ms ease forwards;
 }
 
 :root {
@@ -131,19 +131,19 @@
 }
 
 .dark {
-  --background: oklch(0.2355 0.0119 270.8695);
+  --background: #14131b;
   --foreground: oklch(1.0000 0 0);
   --card: oklch(0.2526 0.0299 93.5687);
   --card-foreground: oklch(1.0000 0 0);
   --popover: oklch(0.2355 0.0119 270.8695);
   --popover-foreground: oklch(1.0000 0 0);
-  --primary: oklch(0.8658 0.1714 89.6547);
+  --primary: #efba37;
   --primary-foreground: oklch(0 0 0);
   --secondary: oklch(0.3015 0.0190 268.0527);
   --secondary-foreground: oklch(1.0000 0 0);
   --muted: oklch(0.3015 0.0190 268.0527);
   --muted-foreground: oklch(0.7137 0.0192 261.3246);
-  --accent: oklch(0.3015 0.0190 268.0527);
+  --accent: #1e1e28;
   --accent-foreground: oklch(1.0000 0 0);
   --destructive: oklch(0.6368 0.2078 25.3313);
   --border: oklch(0.3729 0.0306 259.7328);
@@ -196,134 +196,30 @@
   }
 }
 
-@layer base {
-  .background-bubble {
-    z-index: 1;
-    transition: all ease 500ms;
-  }
+@layer theme {
 
-  .background-bubble.wallet {
-    border-radius: 33% 67% 30% 70% / 26% 42% 58% 74%;
-    width: 300px;
-    height: 200px;
-    position: absolute;
-    top: 8vh;
-    left: 15vw;
-  }
 
-  .background-bubble.create {
-    border-radius: 33% 67% 30% 70% / 26% 42% 58% 74%;
-    width: 35vw;
-    height: 50dvh;
-  }
-
-  .background-bubble.words {
-    border-radius: 17% 83% 11% 89% / 80% 34% 66% 20%;
-    width: 60vw;
-    height: 75dvh;
-  }
-
-  .background-bubble.words12 {
-    border-radius: 67% 33% 91% 9% / 25% 88% 12% 75%;
-    width: 60vw;
-    height: 75dvh;
-  }
-
-  .background-bubble.words24 {
-    border-radius: 17% 83% 12% 88% / 81% 28% 72% 19%;
-    width: 60vw;
-    height: 80dvh;
-  }
-
-  @media (max-width: 1800px) {
-    .background-bubble.words {
-      width: 70dvw;
+  @keyframes popup {
+    0% {
+      position: relative;
+      top: 100%;
     }
-
-    .background-bubble.words12 {
-      width: 70dvw;
+    90% {
+      position: relative;
+      top: 0%;
     }
-
-    .background-bubble.words24 {
-      width: 75dvw;
-    }
-
-    .background-bubble.wallet {
-      left: 13vw;
+    100% {
+      position: static;
     }
   }
-
-  @media (max-width: 1750px) {
-    .background-bubble.wallet {
-      left: 13vw;
+  @keyframes popdown {
+    0% {
+      position: relative;
+      bottom: 0%;
     }
-  }
-
-  @media (max-width: 1650px) {
-    .background-bubble.wallet {
-      left: 7vw;
-    }
-  }
-
-  @media (max-width: 1450px) {
-    .background-bubble.wallet {
-      left: 1vw;
-    }
-  }
-  @media (max-width: 1350px) {
-    .background-bubble.wallet {
-      left: -2vw;
-    }
-  }
-
-  @media (max-width: 1000px) {
-    .background-bubble.create {
-      width: 75dvw;
-    }
-
-    .background-bubble.words {
-      width: 100vw;
-      height: 75dvh;
-    }
-
-    .background-bubble.words12 {
-      width: 100vw;
-      height: 75dvh;
-    }
-
-    .background-bubble.words24 {
-      width: 100vw;
-      height: 80dvh;
-    }
-  }
-
-  @media (max-width: 1200px) {
-    .background-bubble.create {
-      width: 55dvw;
-    }
-  }
-
-  @media (max-width: 800px) {
-    .background-bubble.wallet {
-      top: -1vh;
-    }
-  }
-
-  @media (max-width: 500px) {
-    .background-bubble.create {
-      width: 95dvw;
-    }
-  }
-
-
-
-  @keyframes popin {
-    from {
-      opacity: 0;
-    }
-
-    to {
-      opacity: 1;
+    100% {
+      position: relative;
+      bottom: -100%;
     }
   }
 }

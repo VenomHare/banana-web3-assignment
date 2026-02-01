@@ -1,65 +1,30 @@
 'use client';
 
-import { CreateScreen } from "@/components/CreateScreen";
-import { ScreenContext, Web3Context } from "@/context/context";
-import { useContext, useEffect, useRef, useState } from "react";
-import { ActiveScreen } from "@/lib/types";
-import { cn } from "@/lib/utils";
-import { WordsScreen } from "@/components/WordsScreen";
-import { TwelveWordsScreen } from "@/components/TwelveWordsScreen";
-import { TwentyFourWordsScreen } from "@/components/TwentyFourWordsScreen";
-import { WalletScreen } from "@/components/WalletScreen";
-import { useWeb3 } from "@/components/useWeb3";
-import { ModeToggle } from "@/components/ThemeButton";
+import { Button } from "@/components/ui/button";
+import { SquareArrowOutUpRight } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
-    const [screen, setScreen] = useState<ActiveScreen>("create");
-    const titleRef = useRef<HTMLDivElement | null>(null);
-    const hook = useWeb3();
+    const router = useRouter();
 
     return (<>
-        <ModeToggle/>
-        <ScreenContext.Provider value={{ screen, setScreen }}>
-            <Web3Context.Provider value={hook}>
-                <RenderScreen />
-                <BackgroundProp />
-            </Web3Context.Provider>
-        </ScreenContext.Provider>
+        <div className="w-screen h-dvh overflow-x-hidden bg-background flex items-end justify-center">
+            <div className="w-full md:max-w-xl overflow-y-auto md:overflow-y-clip shadow bg-linear-to-br from-[#1f2029] to-accent h-full md:h-auto md:min-h-[70dvh] pt-10 md:rounded-3xl md:rounded-b-none transition-all duration-100">
+                <div className="w-full flex items-center justify-center mt-15 mb-5 gap-2 group">
+                    <img src="/banana.png" className="w-[50px] h-[50px] aspect-square object-contain group-hover:scale-[1.05] group-hover:rotate-10 transition-all duration-100" alt="Logo" />
+                    <h1 className="text-5xl font-salsa font-semibold">Banana</h1>
+                </div>
+                <h2 className="text-center text-lg font-sans">Web3 HD Wallet</h2>
+                <div className="mt-20 w-full flex flex-col items-center gap-5">
+                    <Button className="w-3/5" onClick={() => {router.push("/create")}}>
+                        Create New Wallet
+                    </Button>
+                    <Button variant={"secondary"} className="w-3/5" onClick={() => {router.push("/dashboard")}}>
+                        Dashboard
+                        <SquareArrowOutUpRight />
+                    </Button>
+                </div>
+            </div>
+        </div>
     </>);
 }
-
-const RenderScreen = () => {
-
-    const { screen } = useContext(ScreenContext);
-
-    switch (screen) {
-        default: return (<></>);
-        case "create":
-            return <CreateScreen />;
-        case "words":
-            return <WordsScreen />;
-        case "12-words":
-            return <TwelveWordsScreen />;
-        case "24-words":
-            return <TwentyFourWordsScreen />;
-        case "wallet":
-            return <WalletScreen />
-    }
-}
-
-const BackgroundProp = () => {
-    const { screen }: { screen: ActiveScreen } = useContext(ScreenContext);
-
-    return (<div className="w-screen h-dvh flex items-center justify-center fixed top-0 left-0 pointer-events-none">
-        <div
-            className={cn(
-                "background-bubble bg-primary/30 dark:bg-primary/10",
-                screen === "12-words" ? "words12" :
-                    screen === "24-words" ? "words24" :
-                        screen
-            )}
-        >
-        </div>
-    </div>);
-}
-
