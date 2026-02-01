@@ -1,4 +1,4 @@
-
+import { Buffer } from 'buffer'
 import bip39 from 'bip39'
 import { HDKey } from "micro-ed25519-hdkey";
 import bs58 from "bs58";
@@ -114,6 +114,10 @@ export const getUSDCBalance = async (rpcId: RpcId, adr: string) => {
 
 export const sendSolana = async (rpcId: RpcId, amount: number, sender: KeySet, receiver: string) => {
     try {
+        if (typeof window !== "undefined" && !(window as any).Buffer) {
+            (window as any).Buffer = Buffer;
+        }
+
         const rpc = createSolanaRpc(RpcUrls[rpcId]);
         const rpcSubscriptions = createSolanaRpcSubscriptions(RpcWSUrls[rpcId]);
 
@@ -141,13 +145,11 @@ export const sendSolana = async (rpcId: RpcId, amount: number, sender: KeySet, r
             (tx) => appendTransactionMessageInstructions([transferInstruction], tx),
         )
 
-
         const signedTransaction =
             await signTransactionMessageWithSigners(transactionMessage);
         assertIsTransactionWithBlockhashLifetime(signedTransaction);
         const sendAndConfirmTransaction = sendAndConfirmTransactionFactory({ rpc, rpcSubscriptions });
         await sendAndConfirmTransaction(signedTransaction, { commitment: "confirmed" })
-
 
         const transactionSignature = getSignatureFromTransaction(signedTransaction);
         // console.log("✅ - Transfer transaction Signature ", transactionSignature);
