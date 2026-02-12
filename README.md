@@ -25,6 +25,10 @@ Check out the live application: **[banana-web3-wallet.vercel.app](https://banana
 
 [![Showcase Video](./public/showcase-thumbnail.png)](https://www.youtube.com/watch?v=8Ru921NwJX0)
 
+[![YouTube Demo](https://img.shields.io/badge/Watch%20Demo%20Video-%F0%9F%94%B4%20YouTube-red?logo=youtube&style=for-the-badge)](https://www.youtube.com/watch?v=8Ru921NwJX0)
+
+
+
 
 ## 🛠️ Tech Stack
 
@@ -32,7 +36,7 @@ Check out the live application: **[banana-web3-wallet.vercel.app](https://banana
 - **Blockchain Integration**: @solana/web3.js
 - **Wallet Standards**: BIP39, BIP44 derivation paths
 - **Styling**: Tailwind CSS / CSS Modules
-- **State Management**: React Context / Redux
+- **State Management**: React Context 
 - **Deployment**: Vercel
 - **Package Manager**: npm / yarn / pnpm
 
