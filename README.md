@@ -23,14 +23,8 @@ Check out the live application: **[banana-web3-wallet.vercel.app](https://banana
 
 ## 📸 Showcase
 
-<!-- 📽️ Showcase Video -->
-<video width="100%" controls poster="./public/showcase-thumbnail.png">
-  <source src="./public/banana-wallet-showcase.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+[![Showcase Video](./public/showcase-thumbnail.png)](https://www.youtube.com/watch?v=8Ru921NwJX0)
 
-
-s
 
 ## 🛠️ Tech Stack
 
